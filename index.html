@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Game Bắn Đại Bàng </title>
+
+
+</head>
+<body>
+<canvas onclick="fire(event)" onmousemove="Mousemove(event)" id="myCanvas" width="800" height="500"
+        style="border: 1px solid black"></canvas>
+<script src="myJs/gameBoard.js"></script>
+<script src="myJs/Eagle.js"></script>
+<script src="myJs/Gun.js"></script>
+<script>
+    let cvs = document.getElementById('myCanvas');
+    let ctx = cvs.getContext('2d');
+
+    let gun = new Gun(750, 460);
+    let eagle = new Eagle("picture/eagle.png");
+
+
+
+    function Mousemove(e) {
+        let x = e.pageX - cvs.offsetLeft;
+        let y = e.pageY - cvs.offsetTop;
+        gun.rotateGun(x, y);
+
+    }
+
+    function fire(e) {
+        let x = e.pageX - cvs.offsetLeft;
+        let y = e.pageY - cvs.offsetTop;
+        gun.lazeGun(x, y);
+    }
+
+    function run() {
+        eagle.run();
+        eagle.moveRight();
+        gun.drawGun();
+        requestAnimationFrame(run);
+    }
+
+    run();
+
+
+</script>
+</body>
+
+</html>
